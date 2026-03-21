@@ -1,11 +1,11 @@
 function Gameboard(){
-    const board = [
+    const array = [
         ['', '', ''],
         ['', '', ''],
         ['', '', '']
     ]
 
-    return{board}
+    return{array}
 }
 
 function Player(name, marker){
@@ -35,6 +35,7 @@ const Gamecontroller = (() => {
     let oWinner = false;
     let turns = 0;
     let gameOver = false;
+    let marker = '';
 
     const checkWinner = function(board) {
         for (let i = 0; i < winningLines.length; i++) {
@@ -57,21 +58,30 @@ const Gamecontroller = (() => {
                 return true;
             }
         }
-
+        
         return false;
     };
 
+
     const whoWon = () => {
-        checkWinner(board.board);
+        checkWinner(board.array)
         if(xWinner){
             console.log("x Won the game");     
         }else if(oWinner){
             console.log("o Won the game");
         }
-    }
+    };
 
     const turn = () => {
         turns++
+
+        if(turns % 2 !== 0){
+            marker = 'x';
+        }
+        if(turns % 2 == 0){
+            marker = 'o';
+        }
+
         if(turns === 9){
             gameOver = true;
             console.log("game over");
@@ -79,20 +89,46 @@ const Gamecontroller = (() => {
     }
 
 
+
+    //map button ID -> row & column
+    const getBoardPosition = (id) => {
+    const index = Number(id) - 1;
+    return {
+        row: Math.floor(index / 3),
+        col: index % 3
+    };
+    }
+
+    //Extract shared logic into one function
+    const handleMove = (cell) => {
+    const { row, col } = getBoardPosition(cell.id);
+
+    turn();
+    board.array[row][col] = marker;
+
+    cell.textContent = marker;
+    cell.classList.add("played");
+    cell.style.pointerEvents = "none";
+    
+    console.log(board.array);
+    whoWon();
+    }
+
     return{
         board,
-        checkWinner,
-        whoWon,
         // player1,
         // player2,
-        turn,
+        handleMove,
     }
 })();
 
-const player1 = Player('Aem', 'x');
-const player2 = Player('Jjae', 'o');
-Gamecontroller.board.board[0][0] = player2.marker;
-Gamecontroller.board.board[1][2] = player2.marker;
-Gamecontroller.board.board[2][2] = player2.marker;
-Gamecontroller.whoWon();
-// const divsBtnDiv = document.querySelector('.grid-container');
+const divsBtnDiv = document.querySelector('.grid-container');
+
+//clean event listener no switch
+divsBtnDiv.addEventListener("click", (event) => {
+  const cell = event.target;
+
+  if (!cell.id) return; // safety
+
+  Gamecontroller.handleMove(cell);
+});

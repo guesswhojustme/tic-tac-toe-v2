@@ -50,6 +50,8 @@ button {
     border-radius: 8px;
     filter: drop-shadow(0px 4px 4px #C4C4C4);
     background-color: transparent;
+    height: 30px;
+    font-size: 16px;
 }
 
 button:hover{
@@ -58,4 +60,24 @@ button:hover{
 
 button:active{
     filter: none;
+}
+
+.input-container {
+    display: flex;
+    gap: 20px;
+}
+
+input {
+    height: 30px;
+    width: 200px;
+    font-size: 24px;
+}
+
+p {
+    font-size: 24px;
+}
+
+.played {
+  font-size: 100px;
+  color: gray;
 }
