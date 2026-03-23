@@ -17,7 +17,7 @@ const Gamecontroller = (() => {
 
     const winningLines = [
         //diagonal
-            [[0,0],[1,2],[2,2]],
+            [[0,0],[1,1],[2,2]],
             [[0,2],[1,1],[2,0]],
 
         //vertical
@@ -87,6 +87,7 @@ const Gamecontroller = (() => {
         if(turns === 9){
             gameOver = true;
             console.log("game over");
+            p.textContent = "GAME OVER"
         }
     }
 
