@@ -87,7 +87,7 @@ const Gamecontroller = (() => {
         if(turns === 9){
             gameOver = true;
             console.log("game over");
-            p.textContent = "GAME OVER"
+            p.textContent = "GAME OVER. NO WINNER"
         }
     }
 
@@ -138,6 +138,20 @@ const Gamecontroller = (() => {
 const divsBtnDiv = document.querySelector('.grid-container');
 const p = document.querySelector('p')
 const displayDiv = document.querySelector('.display-container')
+const startBtn = document.getElementById('start-btn');
+
+let gameStart = false;
+
+if(!gameStart){
+    divsBtnDiv.style.pointerEvents = "none";
+}
+
+function startGame() {
+    gameStart = true;
+    if(gameStart){
+        divsBtnDiv.style.pointerEvents = "auto";
+    }
+}
 
 //clean event listener no switch
 divsBtnDiv.addEventListener("click", (event) => {
@@ -148,4 +162,8 @@ divsBtnDiv.addEventListener("click", (event) => {
   Gamecontroller.handleMove(cell);
 });
 
-
+startBtn.addEventListener('click', () => {
+    startGame(gameStart)
+    console.log("start button clicked");
+    console.log(gameStart);
+})
