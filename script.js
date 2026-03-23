@@ -62,22 +62,22 @@ const Gamecontroller = (() => {
         return false;
     };
 
-
     const whoWon = () => {
         checkWinner(board.array)
         if(xWinner){
             console.log("x Won the game");
             divsBtnDiv.style.pointerEvents = "none";
+            p.textContent = "X WON THE GAME!"
         }else if(oWinner){
             console.log("o Won the game");
             divsBtnDiv.style.pointerEvents = "none";
+            p.textContent = "O WON THE GAME!"
         }
 
     };
 
     const turn = () => {
         turns++
-
         if(turns % 2 !== 0){
             marker = 'x';
         }
@@ -87,11 +87,22 @@ const Gamecontroller = (() => {
         if(turns === 9){
             gameOver = true;
             console.log("game over");
-            divsBtnDiv.style.pointerEvents = "none";
         }
     }
 
+    const createRestartBtn = () => {
+        if(turns == 9 || xWinner || oWinner){
+            const restart = document.createElement('button');
+            restart.textContent = 'Restart?'
+            restart.classList.add("restartBtn");
 
+            restart.addEventListener('click', () => {
+                 location.reload();
+            })
+
+            displayDiv.appendChild(restart);
+        }
+    }
 
     //map button ID -> row & column
     const getBoardPosition = (id) => {
@@ -115,17 +126,17 @@ const Gamecontroller = (() => {
     
     console.log(board.array);
     whoWon();
+    createRestartBtn();
     }
 
     return{
-        board,
-        // player1,
-        // player2,
         handleMove,
     }
 })();
 
 const divsBtnDiv = document.querySelector('.grid-container');
+const p = document.querySelector('p')
+const displayDiv = document.querySelector('.display-container')
 
 //clean event listener no switch
 divsBtnDiv.addEventListener("click", (event) => {
@@ -135,3 +146,5 @@ divsBtnDiv.addEventListener("click", (event) => {
 
   Gamecontroller.handleMove(cell);
 });
+
+
