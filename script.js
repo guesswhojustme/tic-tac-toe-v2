@@ -130,8 +130,15 @@ const Gamecontroller = (() => {
     createRestartBtn();
     }
 
+    const startGame = () => {
+        gameStart = true;
+        if(gameStart){
+            divsBtnDiv.style.pointerEvents = "auto";
+        }
+    }
     return{
         handleMove,
+        startGame
     }
 })();
 
@@ -146,13 +153,6 @@ if(!gameStart){
     divsBtnDiv.style.pointerEvents = "none";
 }
 
-function startGame() {
-    gameStart = true;
-    if(gameStart){
-        divsBtnDiv.style.pointerEvents = "auto";
-    }
-}
-
 //clean event listener no switch
 divsBtnDiv.addEventListener("click", (event) => {
   const cell = event.target;
@@ -163,7 +163,7 @@ divsBtnDiv.addEventListener("click", (event) => {
 });
 
 startBtn.addEventListener('click', () => {
-    startGame(gameStart)
+    Gamecontroller.startGame();
     console.log("start button clicked");
     console.log(gameStart);
 })
