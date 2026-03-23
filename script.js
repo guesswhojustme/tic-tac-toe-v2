@@ -8,8 +8,8 @@ function Gameboard(){
     return{array}
 }
 
-function Player(name, marker){
-    return {name, marker}
+function Player(name){
+    return {name}
 }
 
 const Gamecontroller = (() => {
@@ -62,6 +62,9 @@ const Gamecontroller = (() => {
         return false;
     };
 
+    const player1 = Player(input1.value);
+    const player2 = Player(input2.value);
+
     const whoWon = () => {
         checkWinner(board.array)
         if(xWinner){
@@ -80,9 +83,11 @@ const Gamecontroller = (() => {
         turns++
         if(turns % 2 !== 0){
             marker = 'x';
+            p.textContent = "O TURNS"
         }
         if(turns % 2 == 0){
             marker = 'o';
+             p.textContent = "X TURNS"
         }
         if(turns === 9){
             gameOver = true;
@@ -146,6 +151,8 @@ const divsBtnDiv = document.querySelector('.grid-container');
 const p = document.querySelector('p')
 const displayDiv = document.querySelector('.display-container')
 const startBtn = document.getElementById('start-btn');
+const input1 = document.getElementById('player-1');
+const input2 = document.getElementById('player-2')
 
 let gameStart = false;
 
@@ -163,7 +170,11 @@ divsBtnDiv.addEventListener("click", (event) => {
 });
 
 startBtn.addEventListener('click', () => {
+    p.textContent = "X TURN"
     Gamecontroller.startGame();
     console.log("start button clicked");
     console.log(gameStart);
+    console.log(`player 1: ${input1.value}`);
+    console.log(`player 2: ${input2.value}`);
+    
 })
