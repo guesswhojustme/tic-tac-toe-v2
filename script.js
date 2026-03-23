@@ -66,10 +66,13 @@ const Gamecontroller = (() => {
     const whoWon = () => {
         checkWinner(board.array)
         if(xWinner){
-            console.log("x Won the game");     
+            console.log("x Won the game");
+            divsBtnDiv.style.pointerEvents = "none";
         }else if(oWinner){
             console.log("o Won the game");
+            divsBtnDiv.style.pointerEvents = "none";
         }
+
     };
 
     const turn = () => {
@@ -81,10 +84,10 @@ const Gamecontroller = (() => {
         if(turns % 2 == 0){
             marker = 'o';
         }
-
         if(turns === 9){
             gameOver = true;
             console.log("game over");
+            divsBtnDiv.style.pointerEvents = "none";
         }
     }
 
@@ -105,7 +108,7 @@ const Gamecontroller = (() => {
 
     turn();
     board.array[row][col] = marker;
-
+    
     cell.textContent = marker;
     cell.classList.add("played");
     cell.style.pointerEvents = "none";
