@@ -58,7 +58,6 @@ const Gamecontroller = (() => {
         return false;
     };
 
-
     const whoWon = () => {
         checkWinner(board.array)
         if(xWinner){
@@ -73,16 +72,15 @@ const Gamecontroller = (() => {
 
     };
 
-
     const turn = () => {
         turns++
         if(turns % 2 !== 0){
             marker = 'x';
-            p.textContent = `${player2.value} TURNS`
+            p.textContent = `${player2.value}'s TURN`
         }
         if(turns % 2 == 0){
             marker = 'o';
-             p.textContent = `${player1.value} TURNS`
+             p.textContent = `${player1.value}'s TURNS`
         }
         if(turns === 9){
             gameOver = true;
@@ -165,8 +163,16 @@ divsBtnDiv.addEventListener("click", (event) => {
 });
 
 startBtn.addEventListener('click', () => {
-    p.textContent = `${player1.value} TURNS`
+    if(player1.value == '' || player2.value == ''){
+        alert("PLEASE ENTER A NAME!")
+        return;
+    };
+    p.textContent = `${player1.value}'s TURN`
     Gamecontroller.startGame();
+    player1.style.pointerEvents = "none";
+    player2.style.pointerEvents = "none";
+    startBtn.style.pointerEvents = "none";
     console.log("start button clicked");
     console.log(gameStart);
+
 })
